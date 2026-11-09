@@ -1,0 +1,456 @@
+@font-face {
+  font-family: "Vazirmatn";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: local("Vazirmatn"), url("https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn%5Bwght%5D.woff2") format("woff2");
+}
+:root, body, button, input, textarea, select { font-family: "Vazirmatn", Tahoma, sans-serif; }
+
+/* Classroom management, presence, and Persian calendar */
+.class-notice { margin: -3px 0 24px; }
+.class-notice > div { display: grid; gap: 4px; }
+.class-notice b { font-size: 12px; }
+.class-notice span { font-size: 11px; line-height: 1.8; }
+.classroom-card-grid { margin-bottom: 24px; }
+.classroom-card .session-symbol { background: #e9edff; color: #405ce0; }
+.class-detail-layout { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(330px, .92fr); gap: 20px; align-items: start; }
+.class-detail-main, .class-detail-calendar { display: grid; gap: 18px; min-width: 0; }
+.class-detail-calendar { position: sticky; top: 94px; }
+.settings-panel { padding: 21px; }
+.settings-panel .panel-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.settings-panel .panel-heading > div:nth-child(2) { min-width: 0; flex: 1; }
+.settings-panel .panel-heading h2 { margin: 0 0 4px; font-size: 14px; color: var(--text); }
+.settings-panel .panel-heading p { margin: 0; font-size: 10px; line-height: 1.8; color: var(--muted); }
+.settings-panel .field { display: grid; gap: 8px; }
+.add-member-row { display: flex; align-items: center; gap: 9px; }
+.add-member-row .select-control { flex: 1; min-width: 0; height: 43px; }
+.add-member-row .btn { white-space: nowrap; }
+.class-member-list { display: grid; gap: 0; margin-top: 17px; }
+.class-member-row { display: flex; align-items: center; gap: 10px; border-top: 1px solid var(--line); padding: 12px 0; min-width: 0; }
+.class-member-row .avatar { flex: 0 0 37px; }
+.class-member-identity { flex: 1; min-width: 0; display: grid; gap: 3px; }
+.class-member-identity b { font-size: 11px; }
+.class-member-identity code { font-size: 10px; color: var(--muted); direction: ltr; text-align: right; }
+.online-pill { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border-radius: 999px; padding: 6px 9px; font-size: 10px; font-weight: 700; white-space: nowrap; }
+.online-pill i { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+.online-pill.is-online { background: #e7f8f0; color: #168358; }
+.online-pill.is-online i { background: #20b77c; box-shadow: 0 0 0 3px rgba(32,183,124,.12); }
+.online-pill.is-offline { background: #f0f2f6; color: #7d8797; }
+.online-pill.is-offline i { background: #a4adbb; }
+.member-remove { flex: 0 0 32px; color: #b34b52; }
+.member-remove:hover, .event-delete:hover { color: #b4232d; background: #fff0f0; border-color: #ffd7d7; }
+.persian-calendar-panel { padding: 20px; min-width: 0; }
+.calendar-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+.calendar-kicker { color: #5c6d8b; display: flex; align-items: center; gap: 7px; font-size: 10px; font-weight: 700; margin-bottom: 6px; }
+.calendar-head h2 { margin: 0; font-size: 20px; color: var(--text); }
+.calendar-nav { display: flex; gap: 7px; }
+.calendar-nav .icon-button { background: var(--surface); }
+.persian-calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; }
+.calendar-weekday { text-align: center; padding: 8px 0; font-size: 10px; color: var(--muted); font-weight: 700; }
+.calendar-day, .calendar-empty { aspect-ratio: 1 / .9; min-width: 0; border-radius: 9px; border: 1px solid transparent; }
+.calendar-day { background: #f8f9fc; color: var(--text); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; padding: 4px 1px; position: relative; transition: border-color .15s, background .15s; }
+.calendar-day b { font-size: 12px; }
+.calendar-day.has-events { background: #edf1ff; border-color: #cbd5ff; color: #314ab5; }
+.calendar-day-editable:hover { background: #dfe6ff; border-color: #8398ff; }
+.calendar-event-count { font-size: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.calendar-event-dot { width: 4px; height: 4px; border-radius: 50%; background: #4966ea; }
+.calendar-legend { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 14px; color: var(--muted); font-size: 9px; }
+.calendar-legend > span:first-child { display: inline-flex; align-items: center; gap: 6px; }
+.legend-dot { width: 7px; height: 7px; border-radius: 50%; background: #4966ea; }
+.class-event-list { display: grid; gap: 0; }
+.class-event-row { display: flex; align-items: center; gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--line); }
+.class-event-row:last-child { border-bottom: 0; }
+.event-date-tile { flex: 0 0 52px; min-height: 54px; border-radius: 11px; background: #edf1ff; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #3f5bdd; gap: 3px; }
+.event-date-tile b { font-size: 18px; line-height: 1.1; }
+.event-date-tile span { font-size: 9px; }
+.class-event-main { flex: 1; min-width: 0; }
+.class-event-main h3 { margin: 0 0 5px; font-size: 12px; color: var(--text); }
+.class-event-main p { margin: 0 0 7px; font-size: 10px; line-height: 1.7; color: var(--muted); white-space: pre-wrap; }
+.class-event-meta { display: flex; gap: 13px; flex-wrap: wrap; color: var(--muted); font-size: 9px; }
+.class-event-meta span { display: inline-flex; align-items: center; gap: 5px; }
+.student-calendar-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, 1fr); gap: 18px; align-items: start; }
+.event-delete { flex: 0 0 32px; color: #9aa4b5; }
+.jalali-date-input { font-variant-numeric: tabular-nums; letter-spacing: .08em; }
+.presence-metrics { margin-top: 15px; }
+.source-code-action { display: grid; gap: 4px; justify-items: start; }
+.source-code-action small { font-size: 9px; color: var(--muted); }
+.source-code-action .text-link { font-size: 10px; }
+.source-code-action .text-link:disabled { color: #9ba4b2; cursor: not-allowed; }
+.source-code-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; color: var(--muted); font-size: 10px; }
+.source-code-toolbar > span, .source-code-toolbar .text-link { display: inline-flex; align-items: center; gap: 7px; }
+.source-code-view { direction: ltr; text-align: left; white-space: pre; overflow: auto; max-height: min(62vh, 700px); margin: 0; padding: 18px; border-radius: 12px; color: #dce7f7; background: #0d1521; border: 1px solid #28374b; font: 12px/1.75 "Cascadia Code", Consolas, monospace; }
+.floating-loading { position: fixed; bottom: 24px; left: 24px; z-index: 220; display: flex; align-items: center; gap: 9px; padding: 11px 14px; border-radius: 11px; background: #17243a; color: white; font-size: 11px; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+
+@media (max-width: 1000px) { .class-detail-layout, .student-calendar-layout { grid-template-columns: 1fr; } .class-detail-calendar { position: static; } }
+@media (max-width: 560px) { .settings-panel, .persian-calendar-panel { padding: 15px; } .add-member-row { align-items: stretch; flex-direction: column; } .add-member-row .btn { width: 100%; } .calendar-head h2 { font-size: 17px; } .persian-calendar-grid { gap: 3px; } .calendar-day, .calendar-empty { border-radius: 7px; } .calendar-day b { font-size: 10px; } .calendar-event-count { font-size: 7px; } .calendar-weekday { font-size: 8px; } .calendar-legend { align-items: flex-start; flex-direction: column; } .class-member-row { gap: 7px; } .online-pill { padding: 5px 7px; font-size: 9px; } .member-remove { flex-basis: 29px; width: 29px; height: 29px; } .class-event-row { gap: 8px; } .event-date-tile { flex-basis: 45px; } }
+
+
+/* Keep the whole application in Vazirmatn; only code/output surfaces use monospace. */
+.app-shell, .app-shell button, .app-shell input, .app-shell textarea, .app-shell select,
+.auth-page, .auth-page button, .auth-page input, .auth-page textarea, .auth-page select {
+  font-family:"Vazirmatn",Tahoma,sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Main text uses Vazirmatn while source code remains monospaced. */
+.app-shell .student-code,
+.app-shell .source-code-view,
+.app-shell .test-json,
+.app-shell .sample-block pre,
+.app-shell .statement-block code { font-family:Consolas,"Cascadia Code",monospace; }
+
+.app-select { position: relative; display: inline-block; min-width: 0; color: var(--text, #172337); }
+.app-select.input { width: 100%; min-height: 40px; height: auto; padding: 0; }
+.app-select.select-control { height: 38px; min-height: 38px; min-width: 140px; padding: 0; }
+.app-select-trigger { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; height: 100%; min-height: 38px; padding: 0 12px; border: 0; border-radius: inherit; background: transparent; color: inherit; font: inherit; text-align: right; line-height: 1.6; }
+.app-select-trigger span { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.app-select-trigger svg { flex: 0 0 auto; opacity: .8; transition: transform .16s ease; }
+.app-select.is-open .app-select-trigger svg { transform: rotate(180deg); }
+.app-select-trigger:focus-visible { outline: 2px solid var(--blue, #4263eb); outline-offset: -3px; }
+.app-select-menu { position: fixed; inset-inline: auto; top: 0; left: 0; right: auto; z-index: 10000; display: grid; align-content: start; gap: 3px; max-height: min(300px, 45vh); overflow: auto; overscroll-behavior: contain; padding: 5px; border: 1px solid #dfe5ef; border-radius: 11px; background: #fff; color: #243249; box-shadow: 0 16px 36px rgba(15, 28, 52, .18); }
+.app-select-option { width: 100%; min-height: 35px; border: 1px solid transparent; border-radius: 7px; background: transparent; color: inherit; padding: 7px 10px; font: inherit; font-size: 11px; line-height: 1.6; text-align: right; overflow-wrap: anywhere; }
+.app-select-option:hover, .app-select-option:focus-visible { background: #f0f3ff; color: #304bc4; outline: none; }
+.app-select-option.selected { background: #e7ecff; color: #2b47bb; border-color: #d4ddff; font-weight: 700; }
+.app-select.is-disabled { opacity: .62; }
+.student-class-points { display: inline-flex; align-items: center; gap: 5px; flex: 0 0 auto; color: #876321; background: #fff8e7; border: 1px solid #f1e2b5; border-radius: 8px; padding: 5px 8px; font-size: 9px; font-weight: 800; white-space: nowrap; }
+.student-class-points svg { color: #b8882e; }
+.attempt-history-panel { margin-top: 16px; overflow: hidden; padding: 0; border-radius: 14px; }
+.attempt-history-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 17px 19px; border-bottom: 1px solid var(--line, #e7ebf2); background: var(--surface, #fff); }
+.attempt-history-heading > div { min-width: 0; }
+.attempt-history-heading h2 { display: flex; align-items: center; gap: 8px; margin: 0 0 5px; color: var(--text, #172337); font-size: 13px; }
+.attempt-history-heading p { margin: 0; color: var(--muted, #78849a); font-size: 10px; line-height: 1.7; }
+.attempt-history-list { display: grid; gap: 8px; padding: 10px 14px; }
+.attempt-history-row { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 14px; padding: 11px 12px; border: 1px solid var(--line, #e7ebf2); border-radius: 12px; color: var(--text, #172337); }
+.attempt-history-leading { display: grid; grid-template-columns: 30px 30px minmax(0,1fr); align-items: center; gap: 9px; min-width: 0; }
+.attempt-history-result { display: flex; align-items: center; justify-content: flex-start; flex-wrap: wrap; gap: 8px; min-width: 0; }
+.attempt-history-row:last-child { border-bottom: 1px solid var(--line, #e7ebf2); }
+.attempt-index { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; background: #edf1ff; border: 1px solid #dce4ff; color: #405bda; font-weight: 800; font-size: 10px; }
+.attempt-history-main { display: grid; gap: 3px; min-width: 0; }
+.attempt-history-main b { color: var(--text, #172337); font-size: 10px; }
+.attempt-history-main small { color: var(--muted, #78849a); font-size: 9px; }
+.attempt-history-tests { border-radius: 7px; padding: 5px 7px; background: #fff0f0; border: 1px solid #f3d3d5; color: #b43c45; font-size: 9px; white-space: nowrap; }
+.attempt-history-tests.all-passed { background: #eaf8f1; border-color: #c5ebd8; color: #177a55; }
+.attempt-history-row > strong { color: var(--text, #172337); font-size: 10px; white-space: nowrap; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 760px) {
+  .class-member-row { flex-wrap: wrap; }
+  .student-class-points { margin-inline-start: auto; }
+  .attempt-history-row { grid-template-columns: minmax(0,1fr); gap: 9px; padding: 11px; }
+  .attempt-history-leading { grid-template-columns: 28px 30px minmax(0,1fr); gap: 8px; }
+  .attempt-history-result { padding-inline-start: 66px; justify-content: flex-start; }
+  .attempt-history-main small { line-height: 1.75; overflow-wrap: anywhere; }
+  .attempt-history-heading { align-items: flex-start; }
+}
+
+
+/* Class-only session navigation, today's marker, and theme-aware scrollbars (v1.4.1). */
+.classroom-card-wrap { position: relative; min-width: 0; display: flex; flex-direction: column; }
+.classroom-card-wrap .classroom-card { width: 100%; flex: 1; }
+.classroom-card-delete { display: inline-flex; align-items: center; justify-content: center; gap: 7px; align-self: flex-start; margin: 9px 10px 0 auto; min-height: 31px; padding: 0 10px; border: 1px solid #f1d5d8; border-radius: 8px; background: #fff7f7; color: #b83e4a; font: inherit; font-size: 9px; font-weight: 700; transition: .15s ease; }
+.classroom-card-delete:hover { background: #ffe9eb; border-color: #e8b7bd; color: #982532; }
+.session-delete { flex: 0 0 32px; color: #bd4652; background: transparent; }
+.session-delete:hover { background: #fff0f1; color: #a82332; border-color: #edc4ca; }
+.class-session-row { gap: 9px; }
+.calendar-day.is-today { background: #fff0f1 !important; border-color: #d83a4a !important; color: #a91f31 !important; box-shadow: inset 0 0 0 1px #d83a4a22, 0 2px 8px #d83a4a12; }
+.calendar-day.is-today.has-events { background: #ffe7e9 !important; border-color: #cf3043 !important; color: #981b2d !important; }
+.today-legend-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #d83a4a; box-shadow: 0 0 0 3px #d83a4a18; }
+.event-session-status { display: inline-flex; align-items: center; gap: 5px; margin-top: 7px; color: #7c8799; font-size: 9px; font-weight: 700; }
+.event-session-status.is-available { color: #16845c; }
+.class-event-session-open { position: relative; width: 100%; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: inherit; text-align: right; font: inherit; cursor: pointer; transition: background .16s ease, padding .16s ease; }
+.class-event-session-open:hover { background: #f2f5ff; padding-inline: 9px; }
+.class-event-session-open:focus-visible { outline: 2px solid #4263eb; outline-offset: -2px; border-radius: 9px; }
+.class-event-open-arrow { flex: 0 0 auto; color: #16845c; margin-inline-start: 4px; }
+.class-event-session-locked { opacity: .9; }
+.class-event-session-locked .event-date-tile { filter: saturate(.65); }
+
+/* Light scrollbar: soft slate track and blue-grey thumb. */
+:root, body, * { scrollbar-width: thin; scrollbar-color: #aebbd0 #edf1f7; }
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: #edf1f7; border-radius: 10px; }
+*::-webkit-scrollbar-thumb { background: #aebbd0; border: 2px solid #edf1f7; border-radius: 10px; }
+*::-webkit-scrollbar-thumb:hover { background: #8798b2; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 560px) {
+  .classroom-card-delete { margin-top: 7px; }
+  .class-event-session-open { gap: 8px; }
+  .class-event-open-arrow { width: 15px; }
+}
+
+/* The document scrollbar itself follows the selected theme, not only inner panels. */
+
+
+
+
+
+
+
+
+
+
+html::-webkit-scrollbar-button, body::-webkit-scrollbar-button { display:none; width:0; height:0; }
+
+
+/* Calendar hover stability: the clickable session row must never resize on hover. */
+.class-event-session-open {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 104px;
+  padding: 13px 12px;
+  border-radius: 10px;
+  transform: none;
+  transition: background-color .14s ease, border-color .14s ease, box-shadow .14s ease;
+}
+.class-event-session-open:hover {
+  padding-inline: 12px;
+  background: #edf3ff;
+  border-color: #c9d9fb;
+  box-shadow: inset 3px 0 #4385df;
+}
+.class-event-session-open .event-date-tile { flex: 0 0 62px; }
+.class-event-session-open .class-event-main { flex: 1 1 auto; min-width: 0; }
+.class-event-session-open .class-event-open-arrow { flex: 0 0 18px; }
+
+
+:root, body, * { scrollbar-width: thin; scrollbar-color: #4388df #edf2fa; }
+*:not(html):not(body)::-webkit-scrollbar { width: 10px; height: 10px; }
+*:not(html):not(body)::-webkit-scrollbar-track { background: #edf2fa; border-radius: 10px; }
+*:not(html):not(body)::-webkit-scrollbar-thumb { background: #4388df; border: 2px solid #edf2fa; border-radius: 10px; }
+*:not(html):not(body)::-webkit-scrollbar-thumb:hover { background: #2f70c2; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+html::-webkit-scrollbar-button, body::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+
+.session-heading-actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+.session-export { color: #347ed2; background: #edf4ff; border-color: #d3e3fa; }
+.session-export:hover { color: #1e5da9; background: #dfeeff; border-color: #a9c9f2; }
+
+
+.session-json-import { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; padding: 12px; border: 1px dashed #b9cce6; border-radius: 10px; background: #f4f8ff; }
+.session-json-import > span { color: #687b99; font-size: 10px; }
+.form-inline-error { flex-basis: 100%; color: #b52d3b; font-size: 10px; line-height: 1.7; }
+
+
+
+@media (max-width: 680px) {
+  .session-heading-actions { width: 100%; justify-content: flex-start; }
+  .class-event-session-open { min-height: 96px; padding: 10px 8px; gap: 8px; }
+  .class-event-session-open:hover { padding-inline: 8px; }
+  .class-event-session-open .event-date-tile { flex-basis: 48px; }
+}
+
+/* ConfirmProvider is mounted beside the app shell, so theme selectors target html/body too. */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 2.3.2: enforce Vazirmatn across the complete interface. */
+html,
+body,
+body *,
+body *::before,
+body *::after {
+  font-family: "Vazirmatn", Tahoma, sans-serif !important;
+}
+
+/* Keep actual source-code and raw test-data editors readable in monospace. */
+body .student-code,
+body .source-code-view,
+body .test-json,
+body .testcase-value-input,
+body .testcase-json-textarea,
+body .problem-preview-code,
+body .sample-block pre,
+body .statement-block code,
+body .testcase-help pre,
+body .auth-code-art code {
+  font-family: Consolas, "Cascadia Code", monospace !important;
+}
+
+
+/* 2.3.3: prevent the attempt count badge from wrapping and inset the contest leaderboard heading. */
+.attempt-history-actions {
+  flex: 0 0 auto;
+  align-items: center;
+  white-space: nowrap;
+}
+.attempt-history-actions .attempt-count-pill {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: max-content;
+  height: 32px;
+  padding: 0 10px;
+  line-height: 1;
+  white-space: nowrap;
+  direction: rtl;
+  font: 700 11px "Vazirmatn", Tahoma, sans-serif;
+}
+.attempt-history-actions .btn {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+.contest-leaderboard > .contest-leaderboard-heading {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-height: 78px;
+  margin: 0;
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--line, #e7ebf2);
+}
+.contest-leaderboard-heading > .settings-icon {
+  display: grid;
+  flex: 0 0 42px;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #e0e7ff;
+  border-radius: 13px;
+  background: #edf1ff;
+  color: #536de0;
+}
+.contest-leaderboard-heading > div:nth-child(2) {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.contest-leaderboard-heading h2 {
+  margin: 0 0 4px;
+  color: var(--text, #172337);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.contest-leaderboard-heading p {
+  margin: 0;
+  color: var(--muted, #78849a);
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+@media (max-width: 760px) {
+  .attempt-history-heading {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .attempt-history-actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  .contest-leaderboard > .contest-leaderboard-heading {
+    min-height: 72px;
+    padding: 13px 15px;
+  }
+}
+
+/* Portalled floating controls: remain above cards, forms and scroll containers. */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Global typography contract; Monaco owns its own editor font metrics. */
+html, body, button, input, textarea, select,
+body *:not(.monaco-editor):not(.monaco-editor *),
+body *:not(.monaco-editor):not(.monaco-editor *)::before,
+body *:not(.monaco-editor):not(.monaco-editor *)::after {
+  font-family: 'Vazirmatn', Tahoma, sans-serif !important;
+}
+body .student-code, body .source-code-view, body .test-json, body .testcase-value-input,
+body .testcase-json-textarea, body .problem-preview-code, body .sample-block pre,
+body .statement-block code, body .testcase-help pre, body .auth-code-art code {
+  font-family: Consolas, 'Cascadia Code', monospace !important;
+}

@@ -1,0 +1,38 @@
+[Unit]
+Description=ACM Classroom Node.js service (PostgreSQL, website and Bale notifications)
+After=network-online.target docker.service
+Wants=network-online.target
+Requires=docker.service
+
+[Service]
+Type=simple
+User=acmclassroom
+Group=acmclassroom
+# Required to invoke the Docker judge. Membership in the docker group is
+# effectively root-equivalent; deploy this app on a dedicated VPS only.
+SupplementaryGroups=docker
+WorkingDirectory=/opt/acm-classroom
+EnvironmentFile=/opt/acm-classroom/.env
+Environment=NODE_ENV=production
+ExecStartPre=/usr/bin/test -f /opt/acm-classroom/dist/index.html
+ExecStartPre=/usr/bin/node /opt/acm-classroom/scripts/check-db.js
+ExecStart=/usr/bin/node /opt/acm-classroom/server/index.js
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+KillSignal=SIGTERM
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ReadWritePaths=/opt/acm-classroom/data /var/backups/acm-classroom
+
+[Install]
+WantedBy=multi-user.target

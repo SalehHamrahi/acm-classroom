@@ -1,0 +1,38 @@
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+coverage/
+.vite/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+.pgpass
+
+# Database files and backups
+data/
+backup/
+backups/
+*.dump
+*.backup
+*.bak
+*.sqlite
+*.sqlite3
+*.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Private certificates and keys
+*.pem
+*.p12
+*.pfx
+
+# Operating system files
+.DS_Store
+Thumbs.db
